@@ -11,10 +11,9 @@ namespace FPgame
 
         public static BoardState InitializeGame(int boardSize = 8)
         {
-            return 
-                new BoardState(new Board(boardSize), 0)
-                .Fill()
-                .Cascade();
+            return new BoardState(new Board(boardSize), 0)
+                .Pipe(FillEmptySpaces)
+                .Pipe(ProcessCascade);
         }
 
         public static Board CloneBoard(Board board)

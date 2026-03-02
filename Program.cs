@@ -10,9 +10,9 @@ namespace FPgame
            while(true) 
            { 
                bs = bs
-                   .Draw()
-                   .Move()
-                   .Cascade();
+                   .Pipe(b => Game.Draw(b.Board))
+                   .Pipe(Game.ReadMove)
+                   .Pipe(Game.ProcessCascade);
            }
         }
     }
