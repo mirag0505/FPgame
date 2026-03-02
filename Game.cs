@@ -12,11 +12,8 @@ namespace FPgame
         public static BoardState InitializeGame(int boardSize = 8)
         {
             return 
-                // 1. Создаем пустое поле
                 new BoardState(new Board(boardSize), 0)
-                // 2. Заполняем
                 .Fill()
-                // 3. Запускаем каскад
                 .Cascade();
         }
 
