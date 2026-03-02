@@ -9,24 +9,9 @@ namespace FPgame
         static Random r = new Random();
         static char[] symbols = { 'A', 'B', 'C', 'D', 'E', 'F' };
 
-        public static BoardState InitializeGame()
+        public static BoardState InitializeGame(int boardSize = 8)
         {
-            int size = 8;
-            var initialBoard = CreateRandomBoard(size);
-            return new BoardState(initialBoard, 0);
-        }
-
-        public static Board CreateRandomBoard(int size)
-        {
-            var board = new Board(size);
-            for (int i = 0; i < size; i++)
-            {
-                for (int j = 0; j < size; j++)
-                {
-                    board.cells[i, j] = new Element(symbols[r.Next(symbols.Length)]);
-                }
-            }
-            return board;
+            return ProcessCascade(FillEmptySpaces(new BoardState(new Board(boardSize), 0)));
         }
 
         public static Board CloneBoard(Board board)
