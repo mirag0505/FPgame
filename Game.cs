@@ -6,14 +6,14 @@ namespace FPgame
 {
     public static partial class Game
     {
-        static Random r = new Random();
+        internal static Random r = new Random();
         static char[] symbols = { 'A', 'B', 'C', 'D', 'E', 'F' };
 
         public static BoardState InitializeGame(int boardSize = 8)
         {
             return new BoardState(new Board(boardSize), 0)
-                .Pipe(FillEmptySpaces)
-                .Pipe(ProcessCascade);
+                .Pipe(bs => FillEmptySpaces(bs, r))
+                .Pipe(bs => ProcessCascade(bs, r));
         }
 
         public static Board CloneBoard(Board board)

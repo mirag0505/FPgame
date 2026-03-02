@@ -8,6 +8,11 @@ namespace FPgame
     {
         public static BoardState ProcessCascade(BoardState currentState)
         {
+            return ProcessCascade(currentState, Game.r);
+        }
+
+        public static BoardState ProcessCascade(BoardState currentState, Random r)
+        {
             // Находим комбинации
             var matches = FindMatches(currentState.Board);
 
@@ -21,10 +26,10 @@ namespace FPgame
             var stateAfterRemoval = RemoveMatches(currentState, matches);
             
             // Заполняем пустые клетки
-            var stateAfterFilling = FillEmptySpaces(stateAfterRemoval);
+            var stateAfterFilling = FillEmptySpaces(stateAfterRemoval, r);
 
             // Возвращаем рекурсивный вызов с новым состоянием
-            return ProcessCascade(stateAfterFilling);
+            return ProcessCascade(stateAfterFilling, r);
         }
 
         public static List<Match> FindMatches(Board board)
@@ -188,6 +193,11 @@ namespace FPgame
         }
 
         public static BoardState FillEmptySpaces(BoardState currentState)
+        {
+            return FillEmptySpaces(currentState, Game.r);
+        }
+
+        public static BoardState FillEmptySpaces(BoardState currentState, Random r)
         {
             if (currentState.Board.cells == null)
                 return currentState;
