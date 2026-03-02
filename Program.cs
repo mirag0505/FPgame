@@ -7,10 +7,12 @@ namespace FPgame
         static void Main(string[] args)
         {
            BoardState bs = Game.InitializeGame();
-           while(true) { 
-               Game.Draw(bs.Board);
-               bs = Game.ReadMove(bs);
-               bs = Game.ProcessCascade(bs);
+           while(true) 
+           { 
+               bs = bs
+                   .Draw()
+                   .Move()
+                   .Cascade();
            }
         }
     }
