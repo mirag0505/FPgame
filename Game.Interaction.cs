@@ -6,8 +6,9 @@ namespace FPgame
 {
     public static partial class Game
     {
-        public static void Draw(Board board)
+        public static BoardState Draw(BoardState bs)
         {
+            Board board = bs.Board;
             Console.WriteLine("  0 1 2 3 4 5 6 7");
             for (int i = 0; i < 8; i++)
             {
@@ -19,6 +20,7 @@ namespace FPgame
                 Console.WriteLine();
             }
             Console.WriteLine();
+            return bs;
         }
 
         public static BoardState ReadMove(BoardState bs)

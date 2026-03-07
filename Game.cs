@@ -16,6 +16,14 @@ namespace FPgame
                 .Pipe(bs => ProcessCascade(bs, r));
         }
 
+        public static BoardState PlayTurn(BoardState bs)
+        {
+            return bs
+                .Pipe(Draw)
+                .Pipe(ReadMove)
+                .Pipe(ProcessCascade);
+        }
+
         public static Board CloneBoard(Board board)
         {
             Board b = new Board(board.size);

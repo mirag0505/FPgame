@@ -9,10 +9,7 @@ namespace FPgame
            BoardState bs = Game.InitializeGame();
            while(true) 
            { 
-               bs = bs
-                   .Pipe(b => Game.Draw(b.Board))
-                   .Pipe(Game.ReadMove)
-                   .Pipe(Game.ProcessCascade);
+               bs = bs.Pipe(Game.PlayTurn);
            }
         }
     }

@@ -13,23 +13,21 @@ namespace FPgame
 
         public static BoardState ProcessCascade(BoardState currentState, Random r)
         {
-            // Находим комбинации
-            var matches = FindMatches(currentState.Board);
+            return FindMatches(currentState.Board).Count == 0
+                ? currentState
+                : currentState
+                    .Pipe(bs => RemoveMatches(bs, FindMatches(bs.Board)))
+                    .Pipe(Draw)
+                    .Pipe(bs => FillEmptySpaces(bs, r))
+                    .Pipe(Draw)
+                    .Pipe(HandleBonuses)
+                    .Pipe(bs => ProcessCascade(bs, r));
+        }
 
-            // Если не найдено ни одной, завершаем работу (базовый случай рекурсии)
-            if (matches.Count == 0)
-            {
-                return currentState;
-            }
-
-            // Удаляем комбинации, считаем статистику/бонусы
-            var stateAfterRemoval = RemoveMatches(currentState, matches);
-            
-            // Заполняем пустые клетки
-            var stateAfterFilling = FillEmptySpaces(stateAfterRemoval, r);
-
-            // Возвращаем рекурсивный вызов с новым состоянием
-            return ProcessCascade(stateAfterFilling, r);
+        public static BoardState HandleBonuses(BoardState currentState)
+        {
+            // TODO: Implement bonus logic here
+            return currentState;
         }
 
         public static List<Match> FindMatches(Board board)
